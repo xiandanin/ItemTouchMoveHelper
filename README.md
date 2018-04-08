@@ -1,0 +1,2 @@
+# ItemTouchMoveHelper
+用来检测焦点处于RecyclerView的哪个Item，可以用来实现微信里的表情商店预览功能
