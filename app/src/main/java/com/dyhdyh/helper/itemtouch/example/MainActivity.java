@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         rv.addOnItemTouchListener(new SimpleOnItemTouchMoveListener(this, new OnItemTouchMoveListener() {
             @Override
-            public void onItemTouchMove(View childView, int childPosition, MotionEvent event) {
-                if (ItemTouchMoveHelper.isActionTouch(event)) {
+            public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
+                if (isTouchChild && ItemTouchMoveHelper.isActionTouch(event)) {
                     //MotionEvent.ACTION_DOWN MotionEvent.ACTION_MOVE会进入
                     final ExampleData item = adapter.getItem(childPosition);
                     mPreviewWindow.setFileUrl(item.getFile());
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (mPreviewWindow.isShowing()) {
             mPreviewWindow.dismiss();
         }
+        //居中
         int offsetX = (mPreviewWindow.getWidth() - itemView.getWidth()) / 2;
         int height = itemView.getHeight() + mPreviewWindow.getHeight();
         mPreviewWindow.showAsDropDown(itemView, -offsetX, -height);
