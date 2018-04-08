@@ -16,7 +16,7 @@ recyclerView.addOnItemTouchListener(new SimpleOnItemTouchMoveListener(this,
             @Override
             public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
                 if (isTouchChild && ItemTouchMoveHelper.isActionTouch(event)) {
-					//MotionEvent.ACTION_DOWN MotionEvent.ACTION_MOVE会进入
+		    //MotionEvent.ACTION_DOWN MotionEvent.ACTION_MOVE会进入
                 } else {
                     //MotionEvent.ACTION_UP
                 }
