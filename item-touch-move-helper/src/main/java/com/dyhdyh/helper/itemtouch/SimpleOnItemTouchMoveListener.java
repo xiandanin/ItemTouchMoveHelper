@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 public class SimpleOnItemTouchMoveListener extends RecyclerView.SimpleOnItemTouchListener {
     private ItemTouchMoveHelper mItemTouchMoveHelper;
 
-    public SimpleOnItemTouchMoveListener(Context context,OnItemTouchMoveListener listener) {
+    public SimpleOnItemTouchMoveListener(Context context, OnItemTouchMoveListener listener) {
         mItemTouchMoveHelper = new ItemTouchMoveHelper(context);
         mItemTouchMoveHelper.setOnItemTouchMoveListener(listener);
     }

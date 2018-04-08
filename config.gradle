@@ -1,0 +1,43 @@
+ext {
+    android =
+            [
+                    //版本号
+                    versionCode      : 1,
+                    versionName      : "1.0.0",
+
+                    //sdk版本
+                    compileSdkVersion: 26,
+                    buildToolsVersion: "26.0.2",
+                    minSdkVersion    : 14,
+                    targetSdkVersion : 26,
+                    supportVersion   : "26.1.0",
+            ]
+
+    jcenter =
+            [
+                    //项目名称
+                    name       : "ItemTouchMoveHelper",
+                    groupId    : "com.dyhdyh",
+                    //项目地址
+                    siteUrl    : "https://github.com/dengyuhan/ItemTouchMoveHelper",
+                    //项目git地址
+                    gitUrl     : "https://github.com/dengyuhan/ItemTouchMoveHelper.git",
+                    //项目描述
+                    description: "RecyclerView的Item滑动触摸辅助类，可以用来实现微信里的表情商店预览功能",
+                    //开发者的一些基本信息
+                    authorId   : "dengyuhan",
+                    authorName : "dengyuhan",
+                    authorEmail: "22309946@qq.com",
+
+                    //开源协议
+                    licenses   : {
+                        license {
+                            name 'MIT'
+                            url 'https://opensource.org/licenses/MIT'
+                        }
+                    },
+                    licenseName: 'MIT'
+            ]
+
+
+}

@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemTouchMove(View childView, int childPosition, MotionEvent event) {
                 if (ItemTouchMoveHelper.isActionTouch(event)) {
+                    //MotionEvent.ACTION_DOWN MotionEvent.ACTION_MOVE会进入
                     final ExampleData item = adapter.getItem(childPosition);
                     mPreviewWindow.setFileUrl(item.getFile());
                     showAsItemViewAbove(childView);
                 } else {
+                    //MotionEvent.ACTION_UP
                     mPreviewWindow.dismiss();
                 }
             }
