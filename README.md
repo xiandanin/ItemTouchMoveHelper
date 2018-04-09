@@ -6,7 +6,7 @@ RecyclerView的Item滑动触摸辅助类
 
 ### Gradle引入
 ```
-implementation 'com.dyhdyh:item-touch-move-helper:1.0.1'
+implementation 'com.dyhdyh:item-touch-move-helper:1.0.2'
 ```
 
 ### 给RecyclerView添加的滑动触摸监听
@@ -27,7 +27,7 @@ recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(this,
  new OnMovePreviewListener() {
     @Override
     public void onPreview(View childView, int childPosition) {
-		//弹出预览框
+	//弹出预览框
     }
 
     @Override
