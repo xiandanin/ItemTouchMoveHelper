@@ -23,16 +23,17 @@ recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
 本库内置了一个预览效果的监听,开发者在对应的回调控制预览框即可  
 
 ```
-recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(this,
- new OnMovePreviewListener() {
+recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(this, new OnMovePreviewListener() {
     @Override
     public void onPreview(View childView, int childPosition) {
 	//弹出预览框
+	//popupWindow.showAsDropDown(childView,offsetX,offsetY);
     }
 
     @Override
     public void onCancelPreview() {
         //取消预览框
+	//popupWindow.dismiss();
     }
 }));
 ```
