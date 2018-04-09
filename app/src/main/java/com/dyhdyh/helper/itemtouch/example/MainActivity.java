@@ -29,37 +29,37 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         /*
-        rv.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
-            @Override
-            public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
-                Log.d("onItemTouchMove----->", isTouchChild + "," + childPosition + "," + event.getX() + "," + event.getY()+","+event.getAction());
-            }
-        });
+rv.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
+    @Override
+    public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
+        Log.d("onItemTouchMove----->", isTouchChild + "," + childPosition + "," + event.getX() + "," + event.getY()+","+event.getAction());
+    }
+});
         */
 
-        rv.addOnItemTouchListener(new SimpleMovePreviewListener(this, new OnMovePreviewListener() {
-            @Override
-            public void onPreview(View childView, int childPosition) {
-                Log.d("onPreview----->", childPosition + "," + childView);
+rv.addOnItemTouchListener(new SimpleMovePreviewListener(this, new OnMovePreviewListener() {
+    @Override
+    public void onPreview(View childView, int childPosition) {
+        Log.d("SimpleMovePreview----->", "onPreview---->" + childPosition + "," + childView);
 
-                final ExampleData item = adapter.getItem(childPosition);
-                mPreviewWindow.setFileUrl(item.getFile());
+        final ExampleData item = adapter.getItem(childPosition);
+        mPreviewWindow.setFileUrl(item.getFile());
 
-                if (mPreviewWindow.isShowing()) {
-                    mPreviewWindow.dismiss();
-                }
-                //居中
-                int offsetX = (mPreviewWindow.getWidth() - childView.getWidth()) / 2;
-                int height = childView.getHeight() + mPreviewWindow.getHeight();
-                mPreviewWindow.showAsDropDown(childView, -offsetX, -height);
-            }
+        if (mPreviewWindow.isShowing()) {
+            mPreviewWindow.dismiss();
+        }
+        //居中
+        int offsetX = (mPreviewWindow.getWidth() - childView.getWidth()) / 2;
+        int height = childView.getHeight() + mPreviewWindow.getHeight();
+        mPreviewWindow.showAsDropDown(childView, -offsetX, -height);
+    }
 
-            @Override
-            public void onCancelPreview() {
-                Log.d("onCancelPreview----->", "");
-                mPreviewWindow.dismiss();
-            }
-        }));
+    @Override
+    public void onCancelPreview() {
+        Log.d("SimpleMovePreview----->", "onCancelPreview---->");
+        mPreviewWindow.dismiss();
+    }
+}));
     }
 
 }
