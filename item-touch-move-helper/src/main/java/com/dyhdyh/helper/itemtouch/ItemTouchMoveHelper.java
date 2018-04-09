@@ -18,8 +18,6 @@ public class ItemTouchMoveHelper {
     private GestureDetector mGestureDetector;
     private OnItemTouchMoveListener mOnItemTouchMoveListener;
 
-    private int mLastPosition = -1;
-
     public ItemTouchMoveHelper(Context context) {
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -49,10 +47,9 @@ public class ItemTouchMoveHelper {
 
         if (e.getAction() == MotionEvent.ACTION_DOWN || e.getAction() == MotionEvent.ACTION_MOVE) {
             //判断位置 防止多次回调
-            if (mOnItemTouchMoveListener != null && mLastPosition != childPosition) {
+            if (mOnItemTouchMoveListener != null) {
                 mOnItemTouchMoveListener.onItemTouchMove(true, childView, childPosition, e);
             }
-            this.mLastPosition = childPosition;
         } else if (e.getAction() == MotionEvent.ACTION_UP) {
             callCancelItemTouchMove(true, childView, childPosition, e);
         }
@@ -64,7 +61,6 @@ public class ItemTouchMoveHelper {
         if (mOnItemTouchMoveListener != null) {
             mOnItemTouchMoveListener.onItemTouchMove(isTouchChild, childView, childPosition, e);
         }
-        this.mLastPosition = -1;
     }
 
     public void setOnItemTouchMoveListener(OnItemTouchMoveListener listener) {

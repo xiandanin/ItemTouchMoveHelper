@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 
-import com.dyhdyh.helper.itemtouch.ItemTouchMoveHelper;
-import com.dyhdyh.helper.itemtouch.OnItemTouchMoveListener;
-import com.dyhdyh.helper.itemtouch.SimpleOnItemTouchMoveListener;
 import com.dyhdyh.helper.itemtouch.example.adapter.ExampleAdapter;
 import com.dyhdyh.helper.itemtouch.example.exampledata.ExampleData;
+import com.dyhdyh.helper.itemtouch.simple.OnMovePreviewListener;
+import com.dyhdyh.helper.itemtouch.simple.SimpleMovePreviewListener;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
@@ -26,32 +25,41 @@ public class MainActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.rv);
         final ExampleAdapter adapter = new ExampleAdapter(ExampleData.create());
-        rv.setLayoutManager(new GridLayoutManager(this, 4));
+        rv.setLayoutManager(new GridLayoutManager(this, 2));
         rv.setAdapter(adapter);
 
-        rv.addOnItemTouchListener(new SimpleOnItemTouchMoveListener(this, new OnItemTouchMoveListener() {
+        /*
+        rv.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
             @Override
             public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
-                if (isTouchChild && ItemTouchMoveHelper.isActionTouch(event)) {
-                    //MotionEvent.ACTION_DOWN MotionEvent.ACTION_MOVE会进入
-                    final ExampleData item = adapter.getItem(childPosition);
-                    mPreviewWindow.setFileUrl(item.getFile());
-                    showAsItemViewAbove(childView);
-                } else {
-                    //MotionEvent.ACTION_UP
+                Log.d("onItemTouchMove----->", isTouchChild + "," + childPosition + "," + event.getX() + "," + event.getY()+","+event.getAction());
+            }
+        });
+        */
+
+        rv.addOnItemTouchListener(new SimpleMovePreviewListener(this, new OnMovePreviewListener() {
+            @Override
+            public void onPreview(View childView, int childPosition) {
+                Log.d("onPreview----->", childPosition + "," + childView);
+
+                final ExampleData item = adapter.getItem(childPosition);
+                mPreviewWindow.setFileUrl(item.getFile());
+
+                if (mPreviewWindow.isShowing()) {
                     mPreviewWindow.dismiss();
                 }
+                //居中
+                int offsetX = (mPreviewWindow.getWidth() - childView.getWidth()) / 2;
+                int height = childView.getHeight() + mPreviewWindow.getHeight();
+                mPreviewWindow.showAsDropDown(childView, -offsetX, -height);
+            }
+
+            @Override
+            public void onCancelPreview() {
+                Log.d("onCancelPreview----->", "");
+                mPreviewWindow.dismiss();
             }
         }));
     }
 
-    protected void showAsItemViewAbove(View itemView) {
-        if (mPreviewWindow.isShowing()) {
-            mPreviewWindow.dismiss();
-        }
-        //居中
-        int offsetX = (mPreviewWindow.getWidth() - itemView.getWidth()) / 2;
-        int height = itemView.getHeight() + mPreviewWindow.getHeight();
-        mPreviewWindow.showAsDropDown(itemView, -offsetX, -height);
-    }
 }

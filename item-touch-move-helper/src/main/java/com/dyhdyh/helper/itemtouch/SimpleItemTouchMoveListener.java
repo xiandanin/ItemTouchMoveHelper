@@ -3,17 +3,20 @@ package com.dyhdyh.helper.itemtouch;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
+import android.view.View;
 
 /**
+ * 简单的滑动触摸监听
+ *
  * @author dengyuhan
  *         created 2018/4/8 14:22
  */
-public class SimpleOnItemTouchMoveListener extends RecyclerView.SimpleOnItemTouchListener {
+public class SimpleItemTouchMoveListener extends RecyclerView.SimpleOnItemTouchListener implements OnItemTouchMoveListener {
     private ItemTouchMoveHelper mItemTouchMoveHelper;
 
-    public SimpleOnItemTouchMoveListener(Context context, OnItemTouchMoveListener listener) {
+    public SimpleItemTouchMoveListener(Context context) {
         mItemTouchMoveHelper = new ItemTouchMoveHelper(context);
-        mItemTouchMoveHelper.setOnItemTouchMoveListener(listener);
+        mItemTouchMoveHelper.setOnItemTouchMoveListener(this);
     }
 
     @Override
@@ -26,4 +29,8 @@ public class SimpleOnItemTouchMoveListener extends RecyclerView.SimpleOnItemTouc
         mItemTouchMoveHelper.onTouchEvent(rv, e);
     }
 
+    @Override
+    public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
+
+    }
 }
