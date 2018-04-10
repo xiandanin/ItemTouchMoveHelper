@@ -6,15 +6,24 @@ RecyclerView的Item滑动触摸辅助类
 
 ### Gradle引入
 ```
-implementation 'com.dyhdyh:item-touch-move-helper:1.0.2'
+implementation 'com.dyhdyh:item-touch-move-helper:1.0.3'
 ```
 
-### 给RecyclerView添加的滑动触摸监听
+### 普通的滑动触摸监听
 ```
-recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
+recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener() {
     @Override
     public void onItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent event) {
-        Log.d("onItemTouchMove----->", isTouchChild + "," + childPosition + "," + event.getX() + "," + event.getY()+","+event.getAction());
+        //isTouchChild = 是否触摸在itemView上
+        //childView = 当isTouchChild为true时指触摸的itemView,false时为null
+        //childPosition = 当isTouchChild为true时指触摸的item位置,false时为-1
+        Log.d("onItemTouchMove----->", isTouchChild + "," + childPosition + "," + event.getX() + "," + event.getY() + "," + event.getAction());
+    }
+
+    @Override
+    public boolean onInterceptEnable() {
+        //当需要拦截事件回调onItemTouchMove的时候返回true,否则false,一般需要动态控制
+        return true;
     }
 });
 ```
@@ -23,17 +32,17 @@ recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener(this){
 本库内置了一个预览效果的监听,开发者在对应的回调控制预览框即可  
 
 ```
-recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(this, new OnMovePreviewListener() {
+recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(recyclerView, new OnMovePreviewListener() {
     @Override
     public void onPreview(View childView, int childPosition) {
-	//弹出预览框
-	//popupWindow.showAsDropDown(childView,offsetX,offsetY);
+		//弹出预览框
+		//popupWindow.showAsDropDown(childView,offsetX,offsetY);
     }
 
     @Override
     public void onCancelPreview() {
         //取消预览框
-	//popupWindow.dismiss();
+		//popupWindow.dismiss();
     }
 }));
 ```

@@ -1,6 +1,9 @@
 package com.dyhdyh.helper.itemtouch.simple;
 
-import android.content.Context;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,11 +18,27 @@ import com.dyhdyh.helper.itemtouch.SimpleItemTouchMoveListener;
  */
 public class SimpleMovePreviewListener extends SimpleItemTouchMoveListener {
     private int mLastPosition = -1;
+    private boolean mPreviewEnable;//开启预览
+    private GestureDetectorCompat mGestureDetector;
     private OnMovePreviewListener mOnMovePreviewListener;
 
-    public SimpleMovePreviewListener(Context context, OnMovePreviewListener listener) {
-        super(context);
+    public SimpleMovePreviewListener(RecyclerView rv, OnMovePreviewListener listener) {
         this.mOnMovePreviewListener = listener;
+        this.mGestureDetector = new GestureDetectorCompat(rv.getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public void onLongPress(MotionEvent e) {
+                //长按开启预览
+                mPreviewEnable = true;
+                onTouchEvent(rv, e);
+            }
+        });
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        mGestureDetector.onTouchEvent(e);
+        Log.d("Intercept------>", e.getAction() + " " + mPreviewEnable);
+        return super.onInterceptTouchEvent(rv, e);
     }
 
     @Override
@@ -38,9 +57,15 @@ public class SimpleMovePreviewListener extends SimpleItemTouchMoveListener {
         } else {
             //手指抬起时取消
             mLastPosition = -1;
+            mPreviewEnable = false;
             if (mOnMovePreviewListener != null) {
                 mOnMovePreviewListener.onCancelPreview();
             }
         }
+    }
+
+    @Override
+    public boolean onInterceptEnable() {
+        return mPreviewEnable;
     }
 }

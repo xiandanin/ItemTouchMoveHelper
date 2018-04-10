@@ -1,8 +1,7 @@
 package com.dyhdyh.helper.itemtouch;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,58 +12,52 @@ import android.view.View;
  *         created 2018/4/8 14:24
  */
 public class ItemTouchMoveHelper {
-    private boolean mItemTouchMoveEnable;
-
-    private GestureDetector mGestureDetector;
+    private boolean mInterceptEnable;
     private OnItemTouchMoveListener mOnItemTouchMoveListener;
 
-    public ItemTouchMoveHelper(Context context) {
-        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public void onLongPress(MotionEvent e) {
-                //长按触发开启
-                mItemTouchMoveEnable = true;
-            }
-        });
-    }
+    public boolean onTouchEvent(RecyclerView rv, MotionEvent e) {
+        if (!mInterceptEnable) {
+            return false;
+        }
 
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        mGestureDetector.onTouchEvent(e);
-        return mItemTouchMoveEnable;
-    }
+        Log.d("ItemTouchMoveHelper", "onTouchEvent----->" + e);
 
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         View childView = rv.findChildViewUnder(e.getX(), e.getY());
         if (childView == null) {
-            callCancelItemTouchMove(false, null, -1, e);
-            return;
+            if (mOnItemTouchMoveListener != null) {
+                mOnItemTouchMoveListener.onItemTouchMove(false, null, -1, e);
+                return true;
+            }
         }
 
         int childPosition = rv.getChildLayoutPosition(childView);
         if (childPosition < 0) {
-            return;
+            if (mOnItemTouchMoveListener != null) {
+                mOnItemTouchMoveListener.onItemTouchMove(false, null, -1, e);
+                return true;
+            }
         }
 
         if (e.getAction() == MotionEvent.ACTION_DOWN || e.getAction() == MotionEvent.ACTION_MOVE) {
-            //判断位置 防止多次回调
             if (mOnItemTouchMoveListener != null) {
                 mOnItemTouchMoveListener.onItemTouchMove(true, childView, childPosition, e);
+                return true;
             }
         } else if (e.getAction() == MotionEvent.ACTION_UP) {
-            callCancelItemTouchMove(true, childView, childPosition, e);
+            if (mOnItemTouchMoveListener != null) {
+                mOnItemTouchMoveListener.onItemTouchMove(true, childView, childPosition, e);
+                return true;
+            }
         }
+        return false;
     }
 
-    private void callCancelItemTouchMove(boolean isTouchChild, View childView, int childPosition, MotionEvent e) {
-        mItemTouchMoveEnable = false;
-        //抬起时还原
-        if (mOnItemTouchMoveListener != null) {
-            mOnItemTouchMoveListener.onItemTouchMove(isTouchChild, childView, childPosition, e);
-        }
+    public void setOnItemTouchMoveListener(OnItemTouchMoveListener onItemTouchMoveListener) {
+        this.mOnItemTouchMoveListener = onItemTouchMoveListener;
     }
 
-    public void setOnItemTouchMoveListener(OnItemTouchMoveListener listener) {
-        this.mOnItemTouchMoveListener = listener;
+    public void setInterceptEnable(boolean interceptEnable) {
+        this.mInterceptEnable = interceptEnable;
     }
 
     /**

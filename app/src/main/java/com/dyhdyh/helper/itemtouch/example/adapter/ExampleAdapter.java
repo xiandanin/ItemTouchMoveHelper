@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dyhdyh.helper.itemtouch.example.R;
@@ -35,6 +36,13 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ItemHold
         Glide.with(holder.itemView.getContext())
                 .load(item.getCover())
                 .into(holder.iv);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
