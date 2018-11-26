@@ -1,7 +1,6 @@
 package com.dyhdyh.helper.itemtouch;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -20,7 +19,7 @@ public class ItemTouchMoveHelper {
             return false;
         }
 
-        Log.d("ItemTouchMoveHelper", "onTouchEvent----->" + e);
+        //Log.d("ItemTouchMoveHelper", "onTouchEvent----->" + e);
 
         View childView = rv.findChildViewUnder(e.getX(), e.getY());
         if (childView == null) {

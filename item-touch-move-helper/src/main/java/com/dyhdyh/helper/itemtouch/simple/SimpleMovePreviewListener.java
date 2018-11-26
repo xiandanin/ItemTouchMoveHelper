@@ -2,7 +2,6 @@ package com.dyhdyh.helper.itemtouch.simple;
 
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,7 +36,6 @@ public class SimpleMovePreviewListener extends SimpleItemTouchMoveListener {
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         mGestureDetector.onTouchEvent(e);
-        Log.d("Intercept------>", e.getAction() + " " + mPreviewEnable);
         return super.onInterceptTouchEvent(rv, e);
     }
 
