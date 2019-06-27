@@ -13,7 +13,7 @@ import com.dyhdyh.helper.itemtouch.SimpleItemTouchMoveListener;
  * 简单的滑动预览监听
  *
  * @author dengyuhan
- *         created 2018/4/9 09:20
+ * created 2018/4/9 09:20
  */
 public class SimpleMovePreviewListener extends SimpleItemTouchMoveListener {
     private int mLastPosition = -1;

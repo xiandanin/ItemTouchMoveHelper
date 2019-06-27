@@ -20,11 +20,7 @@ public abstract class SimpleItemTouchMoveListener extends RecyclerView.SimpleOnI
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        mItemTouchMoveHelper.setInterceptEnable(onInterceptEnable());
-        if (mItemTouchMoveHelper.onTouchEvent(rv, e)) {
-            return true;
-        }
-        return false;
+        return onInterceptEnable();
     }
 
     @Override

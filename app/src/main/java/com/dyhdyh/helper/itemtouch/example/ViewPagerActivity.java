@@ -3,6 +3,7 @@ package com.dyhdyh.helper.itemtouch.example;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,8 +30,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         mPreviewWindow = new PreviewPopupWindow(this);
 
-        final SlideViewPager viewpager = findViewById(R.id.viewpager);
-
+        final ViewPager viewpager = findViewById(R.id.viewpager);
         viewpager.setAdapter(new PagerAdapter() {
 
             @Override
@@ -67,15 +67,13 @@ public class ViewPagerActivity extends AppCompatActivity {
                         int height = childView.getHeight() + mPreviewWindow.getHeight();
                         mPreviewWindow.showAsDropDown(childView, -offsetX, -height);
 
-                        viewpager.setSlideEnabled(false);
+                        viewpager.requestDisallowInterceptTouchEvent(true);
                     }
 
                     @Override
                     public void onCancelPreview() {
                         Log.d("SimpleMovePreview----->", "onCancelPreview---->");
                         mPreviewWindow.dismiss();
-
-                        viewpager.setSlideEnabled(true);
                     }
                 }));
                 container.addView(rv);
