@@ -6,7 +6,7 @@ RecyclerView的Item滑动触摸辅助类
 
 ### Gradle引入
 ```
-implementation 'com.dyhdyh:item-touch-move-helper:1.0.3'
+implementation 'com.dyhdyh:item-touch-move-helper:1.0.4'
 ```
 
 ### 普通的滑动触摸监听
@@ -28,8 +28,8 @@ recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener() {
 });
 ```
 
-### *实现微信表情预览
-本库内置了一个预览效果的监听,开发者在对应的回调控制预览框即可  
+### *微信表情预览
+内置了预览效果的监听，在对应的回调控制预览框即可  
 
 ```
 recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(recyclerView, new OnMovePreviewListener() {
