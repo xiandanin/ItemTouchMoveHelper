@@ -35,14 +35,14 @@ recyclerView.addOnItemTouchListener(new SimpleItemTouchMoveListener() {
 recyclerView.addOnItemTouchListener(new SimpleMovePreviewListener(recyclerView, new OnMovePreviewListener() {
     @Override
     public void onPreview(View childView, int childPosition) {
-		//弹出预览框
-		//popupWindow.showAsDropDown(childView,offsetX,offsetY);
+	//弹出预览框
+	//popupWindow.showAsDropDown(childView,offsetX,offsetY);
     }
 
     @Override
     public void onCancelPreview() {
         //取消预览框
-		//popupWindow.dismiss();
+	//popupWindow.dismiss();
     }
 }));
 ```
